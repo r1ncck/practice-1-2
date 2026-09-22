@@ -7,8 +7,19 @@ export type Transaction = {
 
 // 1. Напишите предикат isTransaction (можно скопировать из task2)
 export function isTransaction(data: unknown): data is Transaction {
-  // ...
+  return (
+    typeof data == "object" &&
+    data !== null &&
+    "id" in data &&
+    typeof (data as any).id === "string" &&
+    "amount" in data &&
+    typeof (data as any).amount === "number" &&
+    "type" in data &&
+    ((data as any).type === "deposit" || (data as any).type === "withdrawal")
+  );
 }
+
+// у меня возникло замешательство из-за того, что any подчеркнуто красным
 
 // 2. Напишите функцию parseTransactions
 // Принимает массив unknown[]
@@ -16,7 +27,7 @@ export function isTransaction(data: unknown): data is Transaction {
 // Логика: пройтись по массиву. Если isTransaction(item) - добавить в valid.
 // Иначе - добавить строку "Invalid item: <item>" в errors.
 export function parseTransactions(rawData: unknown[]): { valid: Transaction[]; errors: string[] } {
-  // Напишите код здесь
+  
 }
 
 // 3. Напишите функцию calculateBalance
